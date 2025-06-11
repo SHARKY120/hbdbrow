@@ -187,30 +187,26 @@ body {
     content: " ➡";
   }
 
-  .emoji {
-      position: absolute;
-      font-size: 64px;
-      opacity: 0.9;
-      animation: goyang 2s ease-in-out infinite;
-      z-index: 2; /* memastikan emotikon di atas kotak */
-    }
+ .emoji {
+  position: absolute;
+  font-size: 58px;
+  opacity: 0.9;
+  animation: goyang 2s ease-in-out infinite;
+  z-index: 2;
+  pointer-events: none;
+}
 
-    /* Posisi emotikon berada di luar tapi mengarah ke dalam */
-    .kiri-atas {
-      top: calc(50% - 240px);
-      rotate: -10deg;   /* agak di atas kotak */
-      left: calc(50% - 180px);  /* agak ke kiri dari kotak */
-    }
+.kiri-atas {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(-15deg); /* Pojok kiri atas .card */
+}
 
-    .kanan-bawah {
-      top: calc(50% + 135px);   /* agak di bawah kotak */
-      left: calc(50% + 107px);  /* agak ke kanan dari kotak */
-    }
-    @keyframes goyang {
-      0% { transform: rotate(-5deg) translateX(0); }
-      50% { transform: rotate(5deg) translateX(10px); }
-      100% { transform: rotate(-5deg) translateX(0); }
-    }
+.kanan-bawah {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%) rotate(15deg); /* Pojok kanan bawah .card */
+}
 
       
  
@@ -255,34 +251,34 @@ body {
       filter: drop-shadow(0 0 8px #E75480);
     }
     /* Surat tampil modal */
-    .letter-modal {
+.letter-modal {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 90vw;
+  width: 80vw;            /* Lebih kecil dari sebelumnya */
   height: auto;
-  max-height: 75vh;
+  max-height: 65vh;
   background: pink;
   border: #E75480 solid 5px;
   border-radius: 16px;
-  padding: 32px 32px 48px 32px;
+  padding: 24px 20px 36px 20px;
   color: #E75480;
   box-shadow: 0 8px 24px rgba(255, 79, 143, 0.8);
   transform: translate(-50%, -50%) scale(0.8);
   opacity: 0;
   pointer-events: none;
   overflow-y: auto;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   transition: opacity 0.4s ease, transform 0.4s ease;
   z-index: 1000;
   text-align: justify;
 }
-    .letter-modal.show {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: auto;
-    }
+  .letter-modal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
     /* Tombol tutup */
     .close-btn {
       position: absolute;
@@ -328,11 +324,11 @@ body {
     font-size: 72px;
   }
   .letter-modal {
-    width: 90vw;
-    height: auto;
-    max-height: 70vh;
-    padding: 24px 20px 40px 20px;
-    font-size: 0.9rem;
+    .letter-modal {
+    width: 85vw;
+    max-height: 60vh;
+    padding: 20px 16px 32px 16px;
+    font-size: 0.88rem;
   }
   .close-btn {
     font-size: 24px;
