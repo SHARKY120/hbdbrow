@@ -1,5 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:700);
 
+@media screen and (max-width: 480px) {
+  .kamera {
+    font-size: 50px; /* Tetap sama ukurannya */
+  }
+  .slider-wrapper {
+    margin-top: 25px;
+  }
+}
+
+
 body {
     font-family: Roboto;
     background-color: white;
@@ -61,13 +71,14 @@ body {
   }
   
   .slider-wrapper {
-    width: 150px;
-    height: 200px;
-    overflow: hidden;
-    border-radius: 25px;
-    border: #E75480 solid 5px;
-    position: relative;
-    bottom: -10px;
+   margin-top: -78px;
+  width: 150px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 25px;
+  border: #E75480 solid 5px;
+  position: relative;
+  z-index: 2;
   }
   .slider {
     display: flex;
@@ -141,13 +152,16 @@ body {
     user-select: none;
     top: -40px;
 }
- .kamera {
- font-size: 20px;
-  margin-bottom: -50px;
-  margin-top: -16px;
+.kamera {
+  font-size: clamp(40px, 9vw, 75px); /* Ukuran adaptif antara 40px dan 75px */
+  margin-top: -10px;
+  margin-bottom: 10px;
   animation: pulse 1.8s ease-in-out infinite;
-    user-select: text; 
- }
+  user-select: text;
+  z-index: 3;
+  position: relative;
+}
+
 
 @keyframes pulse {
     0%, 100% {
