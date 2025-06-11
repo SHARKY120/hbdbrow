@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Brow!!</title>
+  <style>
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    :root {
+      --color-primary: #e63946;
+      --color-primary-light: #f28482;
+      --color-bg: #ffffff;
+      --color-text-primary: #111111;
+      --color-text-secondary: #6b7280; /* neutral gray */
+      --font-family: 'Poppins', sans-serif;
+      --heart-size: 50px;
+      --popup-bg: #ffffff;
+      --popup-shadow: rgba(0, 0, 0, 0.08);
+      --button-bg: #f9fafb;
+      --button-border: #d1d5db;
+      --button-text: #374151; /* dark neutral */
+      --button-hover-bg: #e5e7eb;
+      --button-hover-border: #9ca3af;
+    --warna-primer: #E75480;
+    --warna-bayangan: #933b55;
+    --warna-outline: #E75480;
+
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--color-bg);
+      color: var(--color-text-secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 3rem 1rem 4rem;
+      user-select: none;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 35px;
+      margin-bottom: 0.25rem;
+      color: var(--color-primary);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      margin-bottom: 3rem;
+      text-align: center;
+      max-width: 480px;
+      line-height: 1.3;
+    }
+
+    #game-area {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: linear-gradient(135deg, pink 0%, pink
+       100%);
+      border-radius: 12px;
+      box-shadow:
+        0 10px 28px rgba(0,0,0,0.06);
+      overflow: hidden;
+      touch-action: manipulation;
+      margin-top: -30px;
+      border: #E75480 solid 5px;
+    }
+
+    .heart {
+      position: absolute;
+      width: var(--heart-size);
+      height: var(--heart-size);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+      will-change: transform;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+    }
+
+    .heart svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--color-primary);
+      filter: drop-shadow(0 0 2px rgba(230, 57, 70, 0.85));
+      transition: filter 0.3s ease;
+    }
+
+    .heart:hover,
+    .heart:focus-visible {
+      outline: none;
+      transform: scale(1.15);
+      z-index: 10;
+    }
+
+    .heart:hover svg,
+    .heart:focus-visible svg {
+      filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.9));
+    }
+
+    #scoreboard {
+      margin-top: 2rem;
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--color-primary);
+      user-select: none;
+      text-align: center;
+    }
+
+    /* Popup overlay */
+    #popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255 255 255 / 0.1);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 2rem 1rem;
+      user-select: none;
+      backdrop-filter: blur(10px);
+    }
+
+
+    #popup-heart:focus-visible {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 8px;
+    }
+
+    #popup-heart .message {
+      margin-bottom: 1.5rem;
+      font-family: var(--font-family);
+      letter-spacing: 0.05em;
+      color: var(--color-text-primary);
+      user-select: text;
+    }
+
+    #popup-buttons {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
+    }
+
+    @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+  }
+
+    button {
+     background-color: #E75480;
+    border: none;
+    border-radius: 4px;
+    right: 13px;
+    top: -11px;
+    color: white;
+    font-size: 12x;
+    font-weight: bold;
+    padding: 16px 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(231, 84, 128, 0.6);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 10px;
+    height: 5px;
+    top: 50px;
+    }
+
+    /* Square popup box with requested size */
+    #popup-heart {
+      background: pink;
+      width: 150px;
+      height: 200px;
+      padding: 1.5rem 1rem;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px var(--popup-shadow);
+      border: #E75480 solid 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-primary);
+      font-weight: 700;
+      font-size: 18px;
+      text-align: center;
+      line-height: 1.1;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .pesan {
+    text-align: center;
+    font-family: 'MyCustomFont', sans-serif;
+    font-size: 10.5px;
+    top: -60px;
+    position: relative;
+    align-items: justify;
+    color: #E75480;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    /* Menumpuk beberapa bayangan untuk menciptakan kedalaman 3D */
+    text-shadow:
+      1px 1px 0 var(--warna-bayangan),
+      2px 2px 0 #a03354,
+      3px 3px 6px rgba(0,0,0,0.6),
+      -0.5px -0.5px 0 var(--warna-outline),
+      0.5px -0.5px 0 var(--warna-outline),
+      -0.5px 0.5px 0 var(--warna-outline),
+      0.5px 0.5px 0 var(--warna-outline);
+    user-select: none;
+}
+    
+    .hatigede{
+      font-size: 60px;
+      position: relative;
+      align-self: justify;
+      align-items: justify;
+      text-align: center;
+      margin-top: -50px;
+      margin-bottom: -30px;
+      animation: pulse 1.8s ease-in-out infinite;
+    user-select: text;
+   }
+    button:hover,
+    button:focus {
+     box-shadow: 0 8px 20px rgba(231, 84, 128, 0.8);
+    transform: scale(1.1);
+    }
+
+    button:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.09);
+    }
+
+    /* Responsive */
+    @media (max-width: 420px) {
+      body {
+        padding: 2rem 1rem 3rem;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+        max-width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      #game-area {
+        height: 380px;
+        width: 280px;
+        border-radius: 10px;
+      }
+
+      :root {
+        --heart-size: 40px;
+      }
+
+      #popup-heart {
+        width: 140px;
+        height: 190px;
+        font-size: 20px;
+        padding: 1.25rem 1rem;
+      }
+
+      #popup-heart .message {
+        margin-bottom: 1rem;
+        font-size: 18px;
+      }
+
+      #popup-buttons {
+        gap: 0.4rem;
+      }
+
+      button {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Catch 5 Hearts!</h1>
+  <div class="subtitle">Tap the hearts to win</div>
+
+  <main id="game-area" aria-label="Heart catching game area" tabindex="0"></main>
+  <div id="scoreboard" aria-live="polite" aria-atomic="true" role="status" style="margin-top:1.5rem; font-weight:600; font-size:16px; color: var(--color-primary); text-align:center;">
+    Hearts caught: 0 / 5
+  </div>
+
+  <!-- Popup -->
+  <div id="popup-overlay" role="alertdialog" aria-modal="true" aria-labelledby="popup-message" tabindex="-1">
+    <section id="popup-heart" tabindex="0">
+      <p class="pesan" id="popup-message">You Win My Heart!</p>
+      <p class="hatigede" id="popup-message">❤️</p>
+      <nav id="popup-buttons" aria-label="Popup menu">
+        <button onclick="window.location.href='../game/menu.html'" type="button" aria-label="Back">Back</button>
+        <button id="btn-restart" type="button" aria-label="Play Again">Retry</button>
+        <button onclick="window.location.href='../kue/kue.html'" type="button" aria-label="Next">Next</button>
+      </nav>
+    </section>
+  </div>
+
+<script>
+  (function() {
+    const gameArea = document.getElementById('game-area');
+    const scoreboard = document.getElementById('scoreboard');
+    const popup = document.getElementById('popup-overlay');
+    const btnBack = document.getElementById('btn-back');
+    const btnNext = document.getElementById('btn-next');
+    const btnRestart = document.getElementById('btn-restart');
+
+    const TOTAL_HEARTS = 5;
+    let heartsCaught = 0;
+    const hearts = [];
+
+    function createHeartElement() {
+      const el = document.createElement('div');
+      el.className = 'heart';
+      el.tabIndex = 0;
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Heart, catch me!');
+      el.innerHTML = `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 
+            7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 
+            19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>`;
+      return el;
+    }
+
+    function positionHeartRandomly(el) {
+      const gaRect = gameArea.getBoundingClientRect();
+      const size = parseInt(getComputedStyle(el).getPropertyValue('--heart-size')) || 50;
+      const padding = 10;
+      const maxX = gaRect.width - size - padding;
+      const maxY = gaRect.height - size - padding;
+      const x = Math.random() * maxX + padding;
+      const y = Math.random() * maxY + padding;
+      el.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function driftHearts() {
+      hearts.forEach(h => {
+        let pos = h.position;
+        const size = parseInt(getComputedStyle(h.el).getPropertyValue('--heart-size')) || 50;
+        const gaRect = gameArea.getBoundingClientRect();
+
+        pos.x += h.vx;
+        pos.y += h.vy;
+
+        if (pos.x <= 0 || pos.x >= gaRect.width - size) h.vx *= -1;
+        if (pos.y <= 0 || pos.y >= gaRect.height - size) h.vy *= -1;
+
+        pos.x = Math.min(Math.max(pos.x, 0), gaRect.width - size);
+        pos.y = Math.min(Math.max(pos.y, 0), gaRect.height - size);
+
+        h.position = pos;
+        h.el.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+      });
+
+      requestAnimationFrame(driftHearts);
+    }
+
+    function catchHeart(heart) {
+      if (!heart.caught) {
+        heart.caught = true;
+        heartsCaught++;
+        scoreboard.textContent = `Hearts caught: ${heartsCaught} / ${TOTAL_HEARTS}`;
+        heart.el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+        heart.el.style.transform += ' scale(1.5)';
+        heart.el.style.opacity = '0';
+        setTimeout(() => {
+          if (heart.el.parentNode) heart.el.parentNode.removeChild(heart.el);
+        }, 500);
+        if (heartsCaught === TOTAL_HEARTS) setTimeout(showWinPopup, 600);
+      }
+    }
+
+    function showWinPopup() {
+      popup.style.display = 'flex';
+      popup.focus();
+    }
+
+    function resetGame() {
+      heartsCaught = 0;
+      scoreboard.textContent = `Hearts caught: 0 / ${TOTAL_HEARTS}`;
+      hearts.forEach(h => {
+        if (h.el.parentNode) h.el.parentNode.removeChild(h.el);
+      });
+      hearts.length = 0;
+      for (let i = 0; i < TOTAL_HEARTS; i++) {
+        const heartEl = createHeartElement();
+        gameArea.appendChild(heartEl);
+        const heartObj = {
+          el: heartEl,
+          position: { x: 0, y: 0 },
+          vx: (Math.random() * 1.5 + 0.4) * (Math.random() > 0.5 ? 1 : -1),
+          vy: (Math.random() * 1.5 + 0.4) * (Math.random() > 0.5 ? 1 : -1),
+          caught: false
+        };
+        positionHeartRandomly(heartEl);
+        let rect = heartEl.getBoundingClientRect();
+        heartObj.position.x = rect.left - gameArea.getBoundingClientRect().left;
+        heartObj.position.y = rect.top - gameArea.getBoundingClientRect().top;
+        heartEl.addEventListener('click', () => catchHeart(heartObj));
+        heartEl.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            catchHeart(heartObj);
+          }
+        });
+        hearts.push(heartObj);
+      }
+    }
+
+    btnRestart.addEventListener('click', () => {
+      popup.style.display = 'none';
+      resetGame();
+      gameArea.focus();
+    });
+
+    resetGame();
+    driftHearts();
+
+    popup.addEventListener('keydown', e => {
+      if (e.key === 'Tab') {
+        const focusable = popup.querySelectorAll('button');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+      if (e.key === 'Escape') {
+        popup.style.display = 'none';
+        resetGame();
+        gameArea.focus();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
+

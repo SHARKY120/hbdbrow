@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Brow!!</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="card" role="main" aria-label="Birthday cake with candle and party popper">
+        <h1 class="judul">A Cake!!
+            <p class="kue">Nyalain Sendiri🔥</p>
+        </h1>
+        <div class="cake" aria-label="Birthday cake">
+            <div class="cake-bottom"></div>
+            <div class="cake-top">
+                <div class="icing-drip"></div>
+            </div>
+            <button
+                class="candle"
+                aria-pressed="false"
+                aria-label="Toggle candle flame (click to light or blow out)"
+                title="Click to light or blow out candle flame"
+                type="button"
+            >
+                <div class="flame" aria-hidden="true">
+                    <svg
+                        viewBox="0 0 24 40"
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-hidden="true"
+                        focusable="false"
+                    >
+                        <path d="M12 0C12 0 20 16 12 32C4 16 12 0 12 0Z" />
+                    </svg>
+                </div>
+            </button>
+        </div>
+        <div class="button-container">
+            <button onclick="window.location.href='../game/menu.html'" class="back">Back</button>
+            <button onclick="window.location.href='../ucapan/ucapan.html'" class="next">Next</button>
+        </div>
+    </div>
+    <div class="emoji kiri-atas">💖</div>
+    <div class="emoji kanan-bawah">✨</div>
+    <div class="confetti-container" aria-hidden="true"></div>
+</body>
+</html>

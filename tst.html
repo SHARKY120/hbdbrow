@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amplop dengan Surat dan Animasi Getar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    /* Reset dan font modern */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', 'Inter', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+    /* Container utama amplop */
+    .envelope-container {
+      position: relative;
+      width: 120px;
+      height: 90px;
+      cursor: pointer;
+      user-select: none;
+      /* hover getar */
+      animation-duration: 0.3s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-name: none;
+    }
+    /* Animasi getar */
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, 0) rotate(-5deg); }
+      40% { transform: translate(2px, 0) rotate(5deg); }
+      60% { transform: translate(-2px, 0) rotate(-5deg); }
+      80% { transform: translate(2px, 0) rotate(5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .envelope-container.shaking {
+      animation-name: shake;
+    }
+    /* Amplop ikon */
+    .material-icons.envelope-icon {
+      font-size: 96px;
+      color: #673ab7;
+      filter: drop-shadow(0 0 6px #7e57c2);
+      transition: color 0.3s ease;
+    }
+    .envelope-container.shaking .envelope-icon {
+      color: #9575cd;
+      filter: drop-shadow(0 0 8px #b39ddb);
+    }
+    /* Surat tampil modal */
+    .letter-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      max-width: 480px;
+      width: 90vw;
+      max-height: 70vh;
+      background: rgba(45, 27, 88, 0.96);
+      border-radius: 16px;
+      padding: 32px 32px 48px 32px;
+      color: #e1bee7;
+      box-shadow: 0 8px 24px rgba(101, 78, 163, 0.8);
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      pointer-events: none;
+      overflow-y: auto;
+      font-size: 1rem;
+      line-height: 1.5;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 1000;
+    }
+    .letter-modal.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+    /* Tombol tutup */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: #d1c4e9;
+      font-size: 28px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0;
+      line-height: 1;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+      color: #fff;
+      outline: none;
+    }
+    /* Scrollbar styling */
+    .letter-modal::-webkit-scrollbar {
+      width: 8px;
+    }
+    .letter-modal::-webkit-scrollbar-track {
+      background: rgba(101, 78, 163, 0.2);
+      border-radius: 8px;
+    }
+    .letter-modal::-webkit-scrollbar-thumb {
+      background: #9575cd;
+      border-radius: 8px;
+    }
+    /* Text surat */
+    .letter-text {
+      white-space: pre-wrap;
+      font-weight: 400;
+    }
+    /* Responsive */
+    @media (max-width: 640px) {
+      .envelope-container {
+        width: 88px;
+        height: 66px;
+      }
+      .material-icons.envelope-icon {
+        font-size: 72px;
+      }
+      .letter-modal {
+        max-width: 95vw;
+        max-height: 60vh;
+        padding: 24px 20px 40px 20px;
+        font-size: 0.9rem;
+      }
+      .close-btn {
+        font-size: 24px;
+        top: 8px;
+        right: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Amplop yang bisa diklik -->
+  <div class="envelope-container" role="button" tabindex="0" aria-label="Klik untuk membuka surat" title="Klik untuk membuka surat">
+    <span class="material-icons envelope-icon" aria-hidden="true">mark_email_unread</span>
+  </div>
+
+  <!-- Modal surat -->
+  <section class="letter-modal" role="dialog" aria-modal="true" aria-labelledby="letter-title" aria-describedby="letter-content">
+    <button class="close-btn" aria-label="Tutup surat">&times;</button>
+    <h2 id="letter-title" style="margin-top:0; margin-bottom:1rem; font-weight:700; font-size:1.75rem; color:#ede7f6;">
+      Surat Penting
+    </h2>
+    <div id="letter-content" class="letter-text">
+Dalam kesempatan ini, saya ingin menyampaikan beberapa hal yang penting dan perlu diperhatikan.  
+Pertama-tama, saya mengucapkan terima kasih atas perhatian dan kerja sama yang telah terjalin selama ini.  
+Kedua, perkembangan terbaru menunjukkan bahwa kita berada pada jalur yang tepat untuk mencapai target yang telah disepakati bersama.  
+Namun demikian, beberapa tantangan tetap harus kita hadapi dengan penuh semangat dan strategi yang matang agar hasil yang diharapkan benar-benar tercapai.  
+
+Selanjutnya, saya mengajak semua pihak untuk terus berinovasi, meningkatkan kualitas kerja, dan menjalin komunikasi yang efektif agar setiap hambatan dapat teratasi dengan cepat dan tepat.  
+Terakhir, mari kita jaga semangat kekompakan dan profesionalisme demi kesuksesan bersama.  
+
+Semoga surat ini dapat menjadi pengingat sekaligus motivasi untuk kita semua memberikan yang terbaik pada setiap langkah ke depan.  
+Terima kasih atas waktu dan perhatian Anda.
+    </div>
+  </section>
+
+  <script>
+    // Elemen amplop dan surat
+    const envelope = document.querySelector('.envelope-container');
+    const letterModal = document.querySelector('.letter-modal');
+    const closeBtn = letterModal.querySelector('.close-btn');
+
+    // Fungsi untuk beri animasi getar dan tampilkan surat
+    function showLetter() {
+      envelope.classList.add('shaking');
+      // Delay kecil supaya getar keliatan sebelum munculin surat
+      setTimeout(() => {
+        letterModal.classList.add('show');
+        envelope.classList.remove('shaking');
+        // Fokus ke tombol tutup untuk aksesibilitas
+        closeBtn.focus();
+      }, 400); // 400ms cocok dengan durasi getar
+    }
+
+    // Fungsi sembunyikan surat
+    function hideLetter() {
+      letterModal.classList.remove('show');
+      // Kembalikan fokus ke amplop
+      envelope.focus();
+    }
+
+    // Event klik amplop untuk buka surat
+    envelope.addEventListener('click', showLetter);
+    envelope.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showLetter();
+      }
+    });
+
+    // Event klik tombol tutup surat
+    closeBtn.addEventListener('click', hideLetter);
+
+    // Tutup surat saat tekan Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && letterModal.classList.contains('show')) {
+        hideLetter();
+      }
+    });
+
+    // Klik luar modal untuk tutup surat
+    letterModal.addEventListener('click', (e) => {
+      if (e.target === letterModal) {
+        hideLetter();
+      }
+    });
+  </script>
+</body>
+</html>
+
