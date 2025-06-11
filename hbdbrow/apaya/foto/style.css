@@ -1,11 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:700);
 
-@media screen and (max-width: 480px) {
-  .slider-wrapper {
-    margin-top: 25px;
-  }
-}
-
 
 body {
     font-family: Roboto;
